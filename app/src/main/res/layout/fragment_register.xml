@@ -1,11 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".register.RegisterFragment">
+    tools:context=".auth.register.RegisterFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.onix.internship.survay.auth.register.RegisterViewModel" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:text="@string/welcome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstNameContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:theme="@style/tealTheme"
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                app:errorResource="@{viewModel.errorFirstName}"
+                app:layout_constraintEnd_toStartOf="@+id/secondNameContainer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstName"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.user.firstName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/secondNameContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:theme="@style/tealTheme"
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                app:errorResource="@{viewModel.errorSecondName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/firstNameContainer"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/secondName"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/second_name"
+                    android:text="@={viewModel.user.secondName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:theme="@style/tealTheme"
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                app:errorResource="@{viewModel.errorLogin}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameContainer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login"
+                    android:text="@={viewModel.user.login}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:theme="@style/tealTheme"
+                app:errorEnabled="true"
+                app:errorResource="@{viewModel.errorPassword}"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginContainer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.user.password}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordConfirmContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:theme="@style/tealTheme"
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                app:errorResource="@{viewModel.errorPasswordConfirm}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordContainer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordConfirm"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_confirmation"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.user.passwordConfirm}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/button_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:text="@string/submit"
+                android:onClick="@{()->viewModel.onRegister()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordConfirmContainer" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

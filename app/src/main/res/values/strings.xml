@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Survay</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">Hello</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="connect">connect</string>
+    <string name="welcome">Welcome</string>
+    <string name="first_name">First Name</string>
+    <string name="second_name">Second Name</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="submit">submit</string>
+    <string name="error_empty_field">Please, fill in the field!</string>
+    <string name="error_confirm_password">Password mismatch</string>
+    <string name="error_login_exist">This login already exists</string>
+    <string name="error_short_password">Password must be longer than 8 characters</string>
+    <string name="error_regex_password">Password must contain letters and numbers</string>
+    <string name="error_login_or_password">Login not found or password is incorrect</string>
 </resources>
