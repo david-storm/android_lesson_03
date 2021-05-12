@@ -16,4 +16,8 @@
     <string name="error_short_password">Password must be longer than 8 characters</string>
     <string name="error_regex_password">Password must contain letters and numbers</string>
     <string name="error_login_or_password">Login not found or password is incorrect</string>
+    <string name="role_admin">Administrator</string>
+    <string name="role_manager">Manager</string>
+    <string name="role_user">User</string>
+    <string name="role_other">Other</string>
 </resources>

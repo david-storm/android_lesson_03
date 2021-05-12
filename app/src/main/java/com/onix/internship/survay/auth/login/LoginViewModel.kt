@@ -34,6 +34,9 @@ class LoginViewModel(private val database: UserDatabaseDao, application: Applica
 
     fun onLogin() {
 
+        _navigationLiveEvent.value =
+            PagerFragmentDirections.actionPagerFragmentToListFragment(1)
+
         if (isEmpty()) {
             return
         }
@@ -50,8 +53,7 @@ class LoginViewModel(private val database: UserDatabaseDao, application: Applica
                 return@launch
             }
 
-            _navigationLiveEvent.value =
-                PagerFragmentDirections.actionPagerFragmentToListFragment(user.getUid())
+
         }
     }
 
