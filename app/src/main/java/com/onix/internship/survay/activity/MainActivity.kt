@@ -1,5 +1,6 @@
 package com.onix.internship.survay.activity
 
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         binding.lifecycleOwner = this
     }
 }
