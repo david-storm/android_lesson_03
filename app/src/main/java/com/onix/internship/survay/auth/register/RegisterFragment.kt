@@ -3,7 +3,6 @@ package com.onix.internship.survay.auth.register
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentRegisterBinding.inflate(inflater)
         return binding.root
@@ -28,7 +27,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).UserDatabaseDao
+        val dataSource = AppDatabase.getInstance(application).userDatabaseDao
 
         val viewModel =
             ViewModelProvider(this, RegisterViewModelFactory(dataSource, application))

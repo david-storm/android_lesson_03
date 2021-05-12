@@ -1,7 +1,6 @@
 package com.onix.internship.survay.auth.register
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
 import com.onix.internship.survay.R

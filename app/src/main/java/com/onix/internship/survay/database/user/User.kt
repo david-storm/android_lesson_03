@@ -24,7 +24,7 @@ data class User(
 
     fun setUid(value: Int){
         uid = value
-        notifyPropertyChanged(BR.uid);
+        notifyPropertyChanged(BR.uid)
     }
 
     @Bindable
@@ -32,28 +32,28 @@ data class User(
 
     fun setLogin(value: String){
         login = value
-        notifyPropertyChanged(BR.login);
+        notifyPropertyChanged(BR.login)
     }
     @Bindable
     fun getFirstName() : String = firstName
 
     fun setFirstName(value: String){
         firstName = value
-        notifyPropertyChanged(BR.firstName);
+        notifyPropertyChanged(BR.firstName)
     }
     @Bindable
     fun getSecondName() : String = secondName
 
     fun setSecondName(value: String){
         secondName = value
-        notifyPropertyChanged(BR.secondName);
+        notifyPropertyChanged(BR.secondName)
     }
     @Bindable
     fun getPassword() : String = password
 
     fun setPassword(value: String){
         password = value
-        notifyPropertyChanged(BR.password);
+        notifyPropertyChanged(BR.password)
     }
 
     @Bindable
@@ -61,7 +61,7 @@ data class User(
 
     fun setPasswordConfirm(value: String){
         passwordConfirm = value
-        notifyPropertyChanged(BR.passwordConfirm);
+        notifyPropertyChanged(BR.passwordConfirm)
     }
 
     @Bindable
@@ -69,7 +69,7 @@ data class User(
 
     fun setRole(value: Int){
         role = value
-        notifyPropertyChanged(BR.role);
+        notifyPropertyChanged(BR.role)
     }
 
 }

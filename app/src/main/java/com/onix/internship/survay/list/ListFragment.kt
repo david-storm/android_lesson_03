@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
-import com.onix.internship.survay.R
+
 import com.onix.internship.survay.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -18,13 +18,13 @@ class ListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         binding = FragmentListBinding.inflate(inflater)
 
-        binding.textView.text = "user-".plus(args.uid.toString())
+        binding.textView.text = args.uid.toString()
 
         return binding.root
     }

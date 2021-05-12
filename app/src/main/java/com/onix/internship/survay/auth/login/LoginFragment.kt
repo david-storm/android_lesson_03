@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.onix.internship.survay.auth.register.RegisterViewModel
-import com.onix.internship.survay.auth.register.RegisterViewModelFactory
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentLoginBinding
 
@@ -20,7 +18,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
@@ -30,7 +28,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).UserDatabaseDao
+        val dataSource = AppDatabase.getInstance(application).userDatabaseDao
 
         val viewModel =
             ViewModelProvider(this, LoginViewModelFactory(dataSource, application))

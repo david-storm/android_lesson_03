@@ -1,8 +1,6 @@
 package com.onix.internship.survay.auth.login
 
 import android.app.Application
-import android.util.Log
-import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData

@@ -10,7 +10,7 @@ import com.onix.internship.survay.database.user.UserDatabaseDao
 @Database(entities = [User::class], version = 1, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase() {
-    abstract val UserDatabaseDao: UserDatabaseDao
+    abstract val userDatabaseDao: UserDatabaseDao
 
     companion object {
         @Volatile
