@@ -9,6 +9,7 @@
         tools:context=".activity.MainActivity">
 
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"

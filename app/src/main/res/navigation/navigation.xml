@@ -2,12 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
-    app:startDestination="@id/registerFragment">
-
+    app:startDestination="@id/pagerFragment">
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.onix.internship.survay.register.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        android:id="@+id/pagerFragment"
+        android:name="com.onix.internship.survay.auth.pager.PagerFragment"
+        android:label="fragment_pager"
+        tools:layout="@layout/fragment_pager" >
+        <action
+            android:id="@+id/action_pagerFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/pagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.onix.internship.survay.list.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="uid"
+            app:argType="integer" />
+    </fragment>
 </navigation>
