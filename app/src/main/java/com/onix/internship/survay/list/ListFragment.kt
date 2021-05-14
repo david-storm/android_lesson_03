@@ -27,7 +27,7 @@ class ListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).UserDatabaseDao
+        val dataSource = AppDatabase.getInstance(application).userDatabaseDao
 
         val viewModel =
             ViewModelProvider(this, ListViewModelFactory(dataSource, application))

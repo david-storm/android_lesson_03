@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.*
 import com.onix.internship.survay.BR
+import com.onix.internship.survay.common.Role
 
 
 @Entity(tableName = "users", indices = [Index(value = ["login"], unique = true)])
@@ -15,7 +16,7 @@ data class User(
     @ColumnInfo(name = "second_name") private var secondName: String = "",
     @ColumnInfo(name = "password") private var password: String = "",
     @Ignore private var passwordConfirm: String = "",
-    @ColumnInfo(name = "role") private var role: Int = 2
+    @ColumnInfo(name = "role") private var role: Int = -1
 
 ) : BaseObservable() {
 

@@ -3,12 +3,14 @@ package com.onix.internship.survay.auth.register
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
-import com.onix.internship.survay.R
 import com.onix.internship.survay.auth.pager.PagerFragmentDirections
+import com.onix.internship.survay.common.ErrorStates
+import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
 import com.onix.internship.survay.common.hashPassword
 import com.onix.internship.survay.database.user.User
 import com.onix.internship.survay.database.user.UserDatabaseDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val database: UserDatabaseDao, application: Application) :
@@ -16,70 +18,74 @@ class RegisterViewModel(private val database: UserDatabaseDao, application: Appl
 
     var user = User()
 
-    private val _errorFirstName = MutableLiveData<Int>()
-    val errorFirstName: LiveData<Int> = _errorFirstName
+    private val _errorFirstName = MutableLiveData(ErrorStates.NONE)
+    val errorFirstName: LiveData<ErrorStates> = _errorFirstName
 
-    private val _errorSecondName = MutableLiveData<Int>()
-    val errorSecondName: LiveData<Int> = _errorSecondName
+    private val _errorSecondName = MutableLiveData(ErrorStates.NONE)
+    val errorSecondName: LiveData<ErrorStates> = _errorSecondName
 
-    private val _errorLogin = MutableLiveData<Int>()
-    val errorLogin: LiveData<Int> = _errorLogin
+    private val _errorLogin = MutableLiveData(ErrorStates.NONE)
+    val errorLogin: LiveData<ErrorStates> = _errorLogin
 
-    private val _errorPassword = MutableLiveData<Int>()
-    val errorPassword: LiveData<Int> = _errorPassword
+    private val _errorPassword = MutableLiveData(ErrorStates.NONE)
+    val errorPassword: LiveData<ErrorStates> = _errorPassword
 
-    private val _errorPasswordConfirm = MutableLiveData<Int>()
-    val errorPasswordConfirm: LiveData<Int> = _errorPasswordConfirm
+    private val _errorPasswordConfirm = MutableLiveData(ErrorStates.NONE)
+    val errorPasswordConfirm: LiveData<ErrorStates> = _errorPasswordConfirm
 
     private val _navigationLiveEvent = SingleLiveEvent<NavDirections>()
     val navigationLiveEvent: LiveData<NavDirections> = _navigationLiveEvent
 
+    private var hasEmptyFields = false
+
     fun onRegister() {
 
         if (isEmpty() || !checkPassword() || !confirmPassword()) {
-            resetPassword()
+            resetPasswords()
             return
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (loginExists()) {
-                resetPassword()
+                resetPasswords()
                 return@launch
             }
 
             if (database.getAllUsers().isNullOrEmpty()) {
-                user.setRole(0)
+                user.setRole(Role.ADMIN.roleIndex)
             } else {
-                user.setRole(2)
+                user.setRole(Role.USER.roleIndex)
             }
 
             user.setPassword(hashPassword(user.getPassword()))
 
             database.insert(user)
 
-            val newUser = database.get(user.getLogin()) ?: return@launch
+            val newUser = database.get(user.getLogin())
 
-            _navigationLiveEvent.value =
-                PagerFragmentDirections.actionPagerFragmentToListFragment(newUser.getUid())
+            _navigationLiveEvent.postValue(
+                PagerFragmentDirections.actionPagerFragmentToListFragment(newUser[0].getUid())
+            )
         }
     }
 
 
     private suspend fun loginExists(): Boolean {
 
-        database.get(user.getLogin()) ?: return false
-        _errorLogin.value = R.string.error_login_exist
-        return true
-
+        return if (database.get(user.getLogin()).isNotEmpty()) {
+            _errorLogin.value = ErrorStates.EXIST_LOGIN
+            true
+        } else {
+            false
+        }
     }
 
     private fun confirmPassword(): Boolean {
         if (user.getPassword() == user.getPasswordConfirm()) {
             return true
         }
-        _errorPasswordConfirm.value = R.string.error_confirm_password
-        user.setPassword("")
-        user.setPasswordConfirm("")
+        _errorPasswordConfirm.value = ErrorStates.PASSWORDS_CONFIRM
+        resetPasswords()
         return false
     }
 
@@ -87,39 +93,39 @@ class RegisterViewModel(private val database: UserDatabaseDao, application: Appl
         val password = user.getPassword()
 
         if (password.length < 8) {
-            _errorPassword.value = R.string.error_short_password
+            _errorPassword.value = ErrorStates.PASSWORD_SHORT
             return false
         }
 
         if (!password.any { it.isLetter() } || !password.any { it.isDigit() }) {
-            _errorPassword.value = R.string.error_regex_password
+            _errorPassword.value = ErrorStates.INCORRECT_PASSWORD
             return false
         }
 
         return true
     }
 
-    private fun checkEmptyField(field: String): Int {
+    private fun checkEmptyField(field: String): ErrorStates {
         if (field.isEmpty()) {
-            return R.string.error_empty_field
+            hasEmptyFields = true
+            return ErrorStates.EMPTY_FIELD
         }
-        return 0
+        return ErrorStates.NONE
     }
 
     private fun isEmpty(): Boolean {
+        hasEmptyFields = false
         _errorFirstName.value = checkEmptyField(user.getFirstName())
         _errorSecondName.value = checkEmptyField(user.getSecondName())
         _errorLogin.value = checkEmptyField(user.getLogin())
         _errorPassword.value = checkEmptyField(user.getPassword())
         _errorPasswordConfirm.value = checkEmptyField(user.getPasswordConfirm())
 
-        return _errorFirstName.value != 0 || _errorSecondName.value != 0 || _errorLogin.value != 0 ||
-                _errorPassword.value != 0 || _errorPasswordConfirm.value != 0
+        return hasEmptyFields
     }
 
-    private fun resetPassword() {
+    private fun resetPasswords() {
         user.setPassword("")
         user.setPasswordConfirm("")
     }
-
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.onix.internship.survay.R
 import com.onix.internship.survay.auth.login.LoginFragment
 import com.onix.internship.survay.auth.register.RegisterFragment
 import com.onix.internship.survay.databinding.FragmentPagerBinding
@@ -36,13 +37,12 @@ class PagerFragment : Fragment() {
         viewPager.adapter = pagerAdapter
         (activity as AppCompatActivity).supportActionBar!!.hide()
         TabLayoutMediator(binding.tabLayout, viewPager) { tab, position ->
-            tab.text = when (position){
-                0 -> "Login"
-                else -> "Register"
-            }
+            tab.setText(when (position){
+                0 -> R.string.login
+                else -> R.string.register
+            })
         }.attach()
     }
-
 }
 
 class AuthAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

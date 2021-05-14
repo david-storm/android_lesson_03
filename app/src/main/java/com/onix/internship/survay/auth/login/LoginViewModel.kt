@@ -9,9 +9,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.onix.internship.survay.R
 import com.onix.internship.survay.auth.pager.PagerFragmentDirections
+import com.onix.internship.survay.common.ErrorStates
 import com.onix.internship.survay.common.SingleLiveEvent
 import com.onix.internship.survay.common.hashPassword
 import com.onix.internship.survay.database.user.UserDatabaseDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val database: UserDatabaseDao, application: Application) :
@@ -21,66 +23,58 @@ class LoginViewModel(private val database: UserDatabaseDao, application: Applica
     private val _navigationLiveEvent = SingleLiveEvent<NavDirections>()
     val navigationLiveEvent: LiveData<NavDirections> = _navigationLiveEvent
 
-    private val _errorLogin = MutableLiveData<Int>()
-    val errorLogin: LiveData<Int> = _errorLogin
+    private val _errorLogin = MutableLiveData(ErrorStates.NONE)
+    val errorLogin: LiveData<ErrorStates> = _errorLogin
 
-    private val _errorPassword = MutableLiveData<Int>()
-    val errorPassword: LiveData<Int> = _errorPassword
+    private val _errorPassword = MutableLiveData(ErrorStates.NONE)
+    val errorPassword: LiveData<ErrorStates> = _errorPassword
 
-    val login = ObservableField<String>()
-
-    val password = ObservableField<String>()
-
+    var login = ""
+    var password = ""
 
     fun onLogin() {
 
-        _navigationLiveEvent.value =
-            PagerFragmentDirections.actionPagerFragmentToListFragment(1)
+        _navigationLiveEvent.postValue(
+            PagerFragmentDirections.actionPagerFragmentToListFragment(1))
 
-        if (isEmpty()) {
-            return
-        }
-
-        viewModelScope.launch {
-            val user = database.get(login.get()!!)
-            if(user == null){
-                viewErrorLogin()
-                return@launch
-            }
-
-            if(user.getPassword() != hashPassword(password.get()!!)){
-                viewErrorLogin()
-                return@launch
-            }
-
-
-        }
+        return
+//        if (checkEmptyFieldAndViewError()) {
+//            return
+//        }
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val user = database.get(login, hashPassword(password))
+//
+//            if (user.isEmpty()) {
+//                _errorLogin.value = ErrorStates.NO_SUCH_USER
+//                password = ""
+//            } else {
+//                _navigationLiveEvent.postValue(
+//                    PagerFragmentDirections.actionPagerFragmentToListFragment(user[0].getUid())
+//                  )
+//            }
+//        }
     }
 
 
-    private fun isEmpty(): Boolean {
+    private fun checkEmptyFieldAndViewError(): Boolean {
 
         var error = false
 
-        if (login.get().isNullOrEmpty()) {
+        if (login.isEmpty()) {
             error = true
-            _errorLogin.value = R.string.error_empty_field
+            _errorLogin.value = ErrorStates.EMPTY_FIELD
+        } else {
+            _errorLogin.value = ErrorStates.NONE
         }
 
-        if (password.get().isNullOrEmpty()) {
+        if (password.isEmpty()) {
             error = true
-            password.set("")
-            _errorPassword.value = R.string.error_empty_field
+            _errorPassword.value = ErrorStates.EMPTY_FIELD
+        } else {
+            _errorPassword.value = ErrorStates.NONE
         }
 
         return error
     }
-
-    private fun viewErrorLogin(){
-        _errorLogin.value = R.string.error_login_or_password
-        password.set("")
-    }
-
-
-
 }
