@@ -5,7 +5,7 @@
     app:startDestination="@id/pagerFragment">
     <fragment
         android:id="@+id/pagerFragment"
-        android:name="com.onix.internship.survay.auth.pager.PagerFragment"
+        android:name="com.onix.internship.survay.ui.auth.pager.PagerFragment"
         android:label="fragment_pager"
         tools:layout="@layout/fragment_pager" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.onix.internship.survay.list.ListFragment"
+        android:name="com.onix.internship.survay.ui.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <argument

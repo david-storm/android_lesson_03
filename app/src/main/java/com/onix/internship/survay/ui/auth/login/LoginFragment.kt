@@ -1,27 +1,31 @@
-package com.onix.internship.survay.auth.register
+package com.onix.internship.survay.ui.auth.login
 
 import android.os.Bundle
-import android.view.*
+import android.util.Log
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.onix.internship.survay.database.AppDatabase
-import com.onix.internship.survay.databinding.FragmentRegisterBinding
+import com.onix.internship.survay.databinding.FragmentLoginBinding
+import kotlinx.coroutines.*
 
+class LoginFragment : Fragment() {
 
-class RegisterFragment : Fragment() {
-
-    private lateinit var binding: FragmentRegisterBinding
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = FragmentRegisterBinding.inflate(inflater)
+        binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,17 +34,32 @@ class RegisterFragment : Fragment() {
         val dataSource = AppDatabase.getInstance(application).userDatabaseDao
 
         val viewModel =
-            ViewModelProvider(this, RegisterViewModelFactory(dataSource, application))
-                .get(RegisterViewModel::class.java)
+            ViewModelProvider(this, LoginViewModelFactory(dataSource, application))
+                .get(LoginViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            delay(5000)
+            if (viewModel.login == "") {
+                initLoginDefault()
+            }
+        }
         viewModel.navigationLiveEvent.observe(viewLifecycleOwner, ::navigate)
 
     }
 
     private fun navigate(direction: NavDirections) {
         findNavController().navigate(direction)
+    }
+
+    private suspend fun initLoginDefault() {
+
+        withContext(Dispatchers.Main) {
+            binding.login.setText("storm")
+        }
+        Log.i("corotine", "write login")
     }
 
 }

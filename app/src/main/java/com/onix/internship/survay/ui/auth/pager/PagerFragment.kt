@@ -1,4 +1,4 @@
-package com.onix.internship.survay.auth.pager
+package com.onix.internship.survay.ui.auth.pager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.onix.internship.survay.R
-import com.onix.internship.survay.auth.login.LoginFragment
-import com.onix.internship.survay.auth.register.RegisterFragment
+import com.onix.internship.survay.ui.auth.login.LoginFragment
+import com.onix.internship.survay.ui.auth.register.RegisterFragment
 import com.onix.internship.survay.databinding.FragmentPagerBinding
 
 class PagerFragment : Fragment() {

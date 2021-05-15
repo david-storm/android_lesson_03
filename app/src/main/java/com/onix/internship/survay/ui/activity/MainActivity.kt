@@ -1,4 +1,4 @@
-package com.onix.internship.survay.activity
+package com.onix.internship.survay.ui.activity
 
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.onix.internship.survay.bindingadapter
+package com.onix.internship.survay.ui.view.binding
 
 
 import androidx.databinding.BindingAdapter

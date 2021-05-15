@@ -1,20 +1,14 @@
-package com.onix.internship.survay.auth.login
+package com.onix.internship.survay.ui.auth.login
 
 import android.app.Application
-import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
-import com.onix.internship.survay.R
-import com.onix.internship.survay.auth.pager.PagerFragmentDirections
+import com.onix.internship.survay.ui.auth.pager.PagerFragmentDirections
 import com.onix.internship.survay.common.ErrorStates
 import com.onix.internship.survay.common.SingleLiveEvent
-import com.onix.internship.survay.common.hashPassword
 import com.onix.internship.survay.database.user.UserDatabaseDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LoginViewModel(private val database: UserDatabaseDao, application: Application) :
     AndroidViewModel(application) {

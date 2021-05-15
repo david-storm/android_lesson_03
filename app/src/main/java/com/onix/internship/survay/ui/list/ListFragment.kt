@@ -1,4 +1,4 @@
-package com.onix.internship.survay.list
+package com.onix.internship.survay.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

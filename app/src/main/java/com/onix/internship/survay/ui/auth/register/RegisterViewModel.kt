@@ -1,9 +1,9 @@
-package com.onix.internship.survay.auth.register
+package com.onix.internship.survay.ui.auth.register
 
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
-import com.onix.internship.survay.auth.pager.PagerFragmentDirections
+import com.onix.internship.survay.ui.auth.pager.PagerFragmentDirections
 import com.onix.internship.survay.common.ErrorStates
 import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
