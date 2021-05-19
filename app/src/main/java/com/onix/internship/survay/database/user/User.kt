@@ -73,5 +73,18 @@ data class User(
         notifyPropertyChanged(BR.role)
     }
 
+    fun role(role :Role? = null) :Role? {
+        if(role == null){
+            return when(getRole()){
+                0 -> Role.ADMIN
+                1 -> Role.MANAGER
+                2 -> Role.USER
+                else -> Role.DEFAULT
+            }
+        }
+        setRole(role.roleIndex)
+        return null
+    }
+
 }
 

@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="@+id/role"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="storm" />
+    <data>
+        <variable
+            name="user"
+            type="com.onix.internship.survay.database.user.User"/>
+        <variable
+            name="clickListener"
+            type="com.onix.internship.survay.ui.list.UserListener" />
+    </data>
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/role"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        tools:text="david bur" />
+        android:onClick="@{() -> clickListener.onClick(user)}">
 
-    <TextView
-        android:id="@+id/role"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/checkBoxRole"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        tools:text="maneger" />
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="@+id/role"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{user.login}"
+            tools:text="storm" />
 
-    <CheckBox
-        android:id="@+id/checkBoxRole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="24sp"
+            app:setFullName="@{user}"
+            app:layout_constraintEnd_toStartOf="@+id/role"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            tools:text="david bur" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="24sp"
+            app:setRole="@{user}"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            tools:text="maneger" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

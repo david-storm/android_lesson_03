@@ -1,7 +1,6 @@
 package com.onix.internship.survay.ui.auth.login
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,9 +40,10 @@ class LoginFragment : Fragment() {
         binding.viewModel = viewModel
         lifecycleScope.launch(Dispatchers.IO) {
 
-            delay(5000)
-            if (viewModel.login == "") {
-                initLoginDefault()
+            waitTime(5)
+            val update = async { insertDefaultLogin(viewModel) }
+            if(update.await()){
+                binding.invalidateAll()
             }
         }
         viewModel.navigationLiveEvent.observe(viewLifecycleOwner, ::navigate)
@@ -54,12 +54,18 @@ class LoginFragment : Fragment() {
         findNavController().navigate(direction)
     }
 
-    private suspend fun initLoginDefault() {
-
-        withContext(Dispatchers.Main) {
-            binding.login.setText("storm")
-        }
-        Log.i("corotine", "write login")
+    private suspend fun waitTime(sec: Int) {
+        delay((1000 * sec).toLong())
     }
 
+
+    private fun insertDefaultLogin(model: LoginViewModel): Boolean {
+        model.apply {
+            if (login.isEmpty()) {
+                login = "Jo"
+                return true
+            }
+        }
+        return false
+    }
 }
