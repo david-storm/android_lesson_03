@@ -21,69 +21,72 @@ data class User(
 ) : BaseObservable() {
 
     @Bindable
-    fun getUid() : Int = uid
+    fun getUid(): Int = uid
 
-    fun setUid(value: Int){
+    fun setUid(value: Int) {
         uid = value
         notifyPropertyChanged(BR.uid)
     }
 
     @Bindable
-    fun getLogin() : String = login
+    fun getLogin(): String = login
 
-    fun setLogin(value: String){
+    fun setLogin(value: String) {
         login = value
         notifyPropertyChanged(BR.login)
     }
-    @Bindable
-    fun getFirstName() : String = firstName
 
-    fun setFirstName(value: String){
+    @Bindable
+    fun getFirstName(): String = firstName
+
+    fun setFirstName(value: String) {
         firstName = value
         notifyPropertyChanged(BR.firstName)
     }
-    @Bindable
-    fun getSecondName() : String = secondName
 
-    fun setSecondName(value: String){
+    @Bindable
+    fun getSecondName(): String = secondName
+
+    fun setSecondName(value: String) {
         secondName = value
         notifyPropertyChanged(BR.secondName)
     }
-    @Bindable
-    fun getPassword() : String = password
 
-    fun setPassword(value: String){
+    @Bindable
+    fun getPassword(): String = password
+
+    fun setPassword(value: String) {
         password = value
         notifyPropertyChanged(BR.password)
     }
 
     @Bindable
-    fun getPasswordConfirm() : String = passwordConfirm
+    fun getPasswordConfirm(): String = passwordConfirm
 
-    fun setPasswordConfirm(value: String){
+    fun setPasswordConfirm(value: String) {
         passwordConfirm = value
         notifyPropertyChanged(BR.passwordConfirm)
     }
 
     @Bindable
-    fun getRole() : Int = role
+    fun getRole(): Int = role
 
-    fun setRole(value: Int){
+    fun setRole(value: Int) {
         role = value
         notifyPropertyChanged(BR.role)
     }
 
-    fun role(role :Role? = null) :Role? {
-        if(role == null){
-            return when(getRole()){
-                0 -> Role.ADMIN
-                1 -> Role.MANAGER
-                2 -> Role.USER
-                else -> Role.DEFAULT
-            }
-        }
+
+    fun getRoleEnum(): Role = when (getRole()) {
+        0 -> Role.ADMIN
+        1 -> Role.MANAGER
+        2 -> Role.USER
+        else -> Role.DEFAULT
+    }
+
+
+    fun setRoleEnum(role: Role){
         setRole(role.roleIndex)
-        return null
     }
 
 }

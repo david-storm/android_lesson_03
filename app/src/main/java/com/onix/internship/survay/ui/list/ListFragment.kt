@@ -32,7 +32,7 @@ class ListFragment : Fragment() {
 
         val dataSource = AppDatabase.getInstance(requireContext())
         val viewModel =
-            ViewModelProvider(this, ListViewModelFactory(dataSource))
+            ViewModelProvider(this, ListViewModelFactory(dataSource, args.uid))
                 .get(ListViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner

@@ -26,7 +26,7 @@ fun TextInputLayout.errorMessage(errorStates: ErrorStates) {
 fun TextView.setRole(item: User?) {
     item?.let {
         setText(
-            when (item.role()) {
+            when (item.getRoleEnum()) {
                 Role.ADMIN -> R.string.role_admin
                 Role.MANAGER -> R.string.role_manager
                 Role.USER -> R.string.role_user

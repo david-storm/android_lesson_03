@@ -15,7 +15,7 @@ interface UserDatabaseDao {
     suspend fun update(user: User)
 
     @Query("SELECT * FROM users WHERE uid = :key LIMIT 1")
-    suspend fun get(key: Int): User?
+    suspend fun get(key: Int): List<User>
 
     @Query("SELECT * FROM users WHERE login = :login AND password = :password LIMIT 1")
     suspend fun get(login: String, password: String): List<User>
