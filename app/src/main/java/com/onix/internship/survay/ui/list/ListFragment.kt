@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentListBinding
 
@@ -38,30 +36,29 @@ class ListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = UserAdapter(UserListener { uid ->
-            viewModel.onUserClicked(uid)
-        })
+        val adapter = UserAdapter(
+            UserListener { uid -> viewModel.onUserClicked(uid) },
+            TestListener { id -> viewModel.onTestClicked(id) }
+        )
 
 //        val manager = LinearLayoutManager(activity)
 //        binding.listUsers.layoutManager = manager
 
         binding.listUsers.adapter = adapter
 
-        viewModel.users.observe(viewLifecycleOwner, Observer {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.submitDataList(it)
             }
         })
 
-        viewModel.navigateToUser.observe(viewLifecycleOwner, ::navigate)
+        viewModel.navigate.observe(viewLifecycleOwner, ::navigate)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     private fun navigate(direction: NavDirections) {

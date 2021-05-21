@@ -21,4 +21,5 @@
     <string name="role_user">User</string>
     <string name="role_other">Other</string>
     <string name="register">Register</string>
+    <string name="test_run">Test run</string>
 </resources>

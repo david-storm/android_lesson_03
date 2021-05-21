@@ -5,22 +5,17 @@ import androidx.navigation.NavDirections
 import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
 import com.onix.internship.survay.database.AppDatabase
-import com.onix.internship.survay.database.test.Test
 import com.onix.internship.survay.database.user.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ListViewModel(private val database: AppDatabase, uid: Int) : ViewModel() {
 
-    private val _users = MutableLiveData<List<User>>()
-    val users: LiveData<List<User>> = _users
+    private val _data = MutableLiveData<List<Any>>()
+    val data: LiveData<List<Any>> = _data
 
-  private val _tests = MutableLiveData<List<Test>>()
-    val tests: LiveData<List<Test>> = _tests
-
-
-    private val _navigateToUser = SingleLiveEvent<NavDirections>()
-    val navigateToUser: LiveData<NavDirections> = _navigateToUser
+    private val _navigate = SingleLiveEvent<NavDirections>()
+    val navigate: LiveData<NavDirections> = _navigate
 
     lateinit var currentUser: User
 
@@ -31,15 +26,27 @@ class ListViewModel(private val database: AppDatabase, uid: Int) : ViewModel() {
 
             currentUser = database.userDatabaseDao.get(uid).first()
 
-            when(currentUser.getRoleEnum()){
-                Role.MANAGER -> _users.postValue(database.userDatabaseDao.getAllUsers())
-                else -> _tests.postValue(database.testDatabaseDao.testAll())
+            when (currentUser.getRoleEnum()) {
+                Role.MANAGER -> _data.postValue(database.userDatabaseDao.getAllUsers())
+                else -> _data.postValue(database.testDatabaseDao.testAll())
             }
         }
     }
 
     fun onUserClicked(uid: Int) {
-        _navigateToUser.value = ListFragmentDirections.actionListFragmentToUserSettingFragment(uid)
+        _navigate.value = ListFragmentDirections.actionListFragmentToUserSettingFragment(uid)
+    }
+
+    fun onTestClicked(id: Int) {
+        when (currentUser.getRoleEnum()) {
+            Role.USER -> _navigate.value =
+                ListFragmentDirections.actionListFragmentToTestRunFragment(id)
+            Role.ADMIN ->
+                viewModelScope.launch(Dispatchers.IO) {
+                    _data.postValue(database.userDatabaseDao.getAllUsers())
+                }
+            else -> throw ClassCastException("Error role")
+        }
     }
 
 }
