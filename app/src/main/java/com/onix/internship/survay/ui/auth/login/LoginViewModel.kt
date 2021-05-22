@@ -4,15 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.onix.internship.survay.ui.auth.pager.PagerFragmentDirections
 import com.onix.internship.survay.common.ErrorStates
+import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
+import com.onix.internship.survay.common.hashPassword
 import com.onix.internship.survay.database.user.UserDatabaseDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginViewModel(private val database: UserDatabaseDao, application: Application) :
     AndroidViewModel(application) {
-
 
     private val _navigationLiveEvent = SingleLiveEvent<NavDirections>()
     val navigationLiveEvent: LiveData<NavDirections> = _navigationLiveEvent
@@ -28,26 +32,34 @@ class LoginViewModel(private val database: UserDatabaseDao, application: Applica
 
     fun onLogin() {
 
-        _navigationLiveEvent.postValue(
-            PagerFragmentDirections.actionPagerFragmentToListFragment(1))
+        val test = 1
+        if(test == 1) {
+            _navigationLiveEvent.postValue(
+                PagerFragmentDirections.actionPagerFragmentToUserListFragment(1)
+            )
+            return
+        }
+        if (checkEmptyFieldAndViewError()) {
+            return
+        }
 
-        return
-//        if (checkEmptyFieldAndViewError()) {
-//            return
-//        }
-//
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val user = database.get(login, hashPassword(password))
-//
-//            if (user.isEmpty()) {
-//                _errorLogin.value = ErrorStates.NO_SUCH_USER
-//                password = ""
-//            } else {
-//                _navigationLiveEvent.postValue(
-//                    PagerFragmentDirections.actionPagerFragmentToListFragment(user[0].getUid())
-//                  )
-//            }
-//        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val user = database.get(login, hashPassword(password))
+
+            if (user.isEmpty()) {
+                _errorLogin.value = ErrorStates.NO_SUCH_USER
+                password = ""
+            } else {
+                _navigationLiveEvent.postValue(
+                    when (user.first().getRoleEnum()) {
+                        Role.ADMIN -> PagerFragmentDirections.actionPagerFragmentToTestListFragment(user.first().getUid())
+                        Role.USER -> PagerFragmentDirections.actionPagerFragmentToTestListFragment(user.first().getUid())
+                        Role.MANAGER -> PagerFragmentDirections.actionPagerFragmentToUserListFragment(user.first().getUid())
+                        Role.DEFAULT -> throw ClassCastException("DEFAULT role")
+                    }
+                )
+            }
+        }
     }
 
 

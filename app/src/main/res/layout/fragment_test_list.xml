@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.list.ListFragment">
+    tools:context=".ui.test.list.TestListFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.onix.internship.survay.ui.list.ListViewModel" />
+            type="com.onix.internship.survay.ui.test.list.TestListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listUsers"
+            android:id="@+id/listTests"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

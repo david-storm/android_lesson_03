@@ -1,12 +1,9 @@
-package com.onix.internship.survay.ui.list
+package com.onix.internship.survay.ui.lists
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.onix.internship.survay.R
 import com.onix.internship.survay.database.test.Test
 import com.onix.internship.survay.database.user.User
 import com.onix.internship.survay.databinding.TestItemViewBinding
@@ -16,12 +13,12 @@ import com.onix.internship.survay.databinding.UserItemViewBinding
 private const val ITEM_VIEW_TYPE_USER = 0
 private const val ITEM_VIEW_TYPE_TEST = 1
 
-class UserAdapter(private val userListener: UserListener, private val testListener: TestListener) :
-    ListAdapter<DataItem, RecyclerView.ViewHolder>(UserDiffCallback()) {
+class AppAdapter(private val userListener: UserListener, private val testListener: TestListener) :
+    ListAdapter<DataItem, RecyclerView.ViewHolder>(AppDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ViewHolder -> {
+            is UserViewHolder -> {
                 val userItem = getItem(position) as DataItem.UserItem
                 holder.bind(userItem.user, userListener)
             }
@@ -34,7 +31,7 @@ class UserAdapter(private val userListener: UserListener, private val testListen
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_USER -> ViewHolder.from(parent)
+            ITEM_VIEW_TYPE_USER -> UserViewHolder.from(parent)
             ITEM_VIEW_TYPE_TEST -> TestViewHolder.from(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
@@ -54,55 +51,6 @@ class UserAdapter(private val userListener: UserListener, private val testListen
             is DataItem.UserItem -> ITEM_VIEW_TYPE_USER
             is DataItem.TestItem -> ITEM_VIEW_TYPE_TEST
         }
-    }
-
-}
-
-class TestViewHolder private constructor(val binding: TestItemViewBinding)
-    : RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(item: Test, clickListener: TestListener) {
-        binding.test = item
-        binding.clickListener = clickListener
-        binding.executePendingBindings()
-    }
-
-    companion object {
-        fun from(parent: ViewGroup): TestViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = TestItemViewBinding.inflate(layoutInflater, parent, false)
-            return TestViewHolder(binding)
-        }
-    }
-}
-
-class ViewHolder private constructor(val binding: UserItemViewBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(item: User, clickListener: UserListener) {
-        binding.user = item
-        binding.clickListener = clickListener
-        binding.executePendingBindings()
-    }
-
-    companion object {
-        fun from(parent: ViewGroup): ViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = UserItemViewBinding.inflate(layoutInflater, parent, false)
-            return ViewHolder(binding)
-        }
-    }
-}
-
-
-class UserDiffCallback : DiffUtil.ItemCallback<DataItem>() {
-
-    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-        return oldItem == newItem
     }
 
 }

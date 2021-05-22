@@ -9,16 +9,19 @@
         android:label="fragment_pager"
         tools:layout="@layout/fragment_pager" >
         <action
-            android:id="@+id/action_pagerFragment_to_listFragment"
-            app:destination="@id/listFragment"
+            android:id="@+id/action_pagerFragment_to_userListFragment"
+            app:destination="@id/userListFragment"
             app:popUpTo="@id/pagerFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_pagerFragment_to_testListFragment"
+            app:destination="@id/testListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.onix.internship.survay.ui.list.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        android:id="@+id/userListFragment"
+        android:name="com.onix.internship.survay.ui.list.UserListFragment"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list">
         <argument
             android:name="uid"
             app:argType="integer" />
@@ -28,14 +31,11 @@
         <action
             android:id="@+id/action_listFragment_to_testRunFragment"
             app:destination="@id/testRunFragment" />
-        <action
-            android:id="@+id/action_listFragment_self"
-            app:destination="@id/listFragment" />
     </fragment>
     <fragment
 
         android:id="@+id/userSettingFragment"
-        android:name="com.onix.internship.survay.ui.userSetting.UserSettingFragment"
+        android:name="com.onix.internship.survay.ui.user.setting.UserSettingFragment"
         android:label="UserSettingFragment" >
         <argument
             android:name="uid"
@@ -47,5 +47,19 @@
         android:label="TestRunFragment" >
         <argument android:name="id"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/testListFragment"
+        android:name="com.onix.internship.survay.ui.test.list.TestListFragment"
+        android:label="TestListFragment" >
+        <argument
+            android:name="uid"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_testListFragment_to_userSettingFragment"
+            app:destination="@id/userSettingFragment" />
+        <action
+            android:id="@+id/action_testListFragment_to_testRunFragment"
+            app:destination="@id/testRunFragment" />
     </fragment>
 </navigation>

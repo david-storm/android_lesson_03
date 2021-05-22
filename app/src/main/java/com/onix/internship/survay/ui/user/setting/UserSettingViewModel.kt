@@ -1,4 +1,4 @@
-package com.onix.internship.survay.ui.userSetting
+package com.onix.internship.survay.ui.user.setting
 
 import androidx.lifecycle.ViewModel
 

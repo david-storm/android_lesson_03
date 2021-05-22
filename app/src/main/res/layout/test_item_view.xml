@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.onix.internship.survay.ui.list.TestListener" />
+            type="com.onix.internship.survay.ui.lists.TestListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

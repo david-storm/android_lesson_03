@@ -9,7 +9,7 @@
             type="com.onix.internship.survay.database.user.User"/>
         <variable
             name="clickListener"
-            type="com.onix.internship.survay.ui.list.UserListener" />
+            type="com.onix.internship.survay.ui.lists.UserListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

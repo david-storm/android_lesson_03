@@ -1,4 +1,4 @@
-package com.onix.internship.survay.ui.list
+package com.onix.internship.survay.ui.test.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,12 +12,15 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.onix.internship.survay.database.AppDatabase
-import com.onix.internship.survay.databinding.FragmentListBinding
+import com.onix.internship.survay.databinding.FragmentTestListBinding
+import com.onix.internship.survay.ui.lists.TestListener
+import com.onix.internship.survay.ui.lists.AppAdapter
+import com.onix.internship.survay.ui.lists.UserListener
 
-class ListFragment : Fragment() {
+class TestListFragment : Fragment() {
 
-    private val args: ListFragmentArgs by navArgs()
-    private lateinit var binding: FragmentListBinding
+    private val args: TestListFragmentArgs by navArgs()
+    private lateinit var binding: FragmentTestListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,17 +29,17 @@ class ListFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
 
-        binding = FragmentListBinding.inflate(inflater)
+        binding = FragmentTestListBinding.inflate(inflater)
 
         val dataSource = AppDatabase.getInstance(requireContext())
         val viewModel =
-            ViewModelProvider(this, ListViewModelFactory(dataSource, args.uid))
-                .get(ListViewModel::class.java)
+            ViewModelProvider(this, TestListViewModelFactory(dataSource, args.uid))
+                .get(TestListViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = UserAdapter(
+        val adapter = AppAdapter(
             UserListener { uid -> viewModel.onUserClicked(uid) },
             TestListener { id -> viewModel.onTestClicked(id) }
         )
@@ -44,7 +47,7 @@ class ListFragment : Fragment() {
 //        val manager = LinearLayoutManager(activity)
 //        binding.listUsers.layoutManager = manager
 
-        binding.listUsers.adapter = adapter
+        binding.listTests.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {

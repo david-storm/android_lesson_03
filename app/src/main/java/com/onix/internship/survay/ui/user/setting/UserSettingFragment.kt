@@ -1,4 +1,4 @@
-package com.onix.internship.survay.ui.userSetting
+package com.onix.internship.survay.ui.user.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.onix.internship.survay.databinding.FragmentStubBinding
 import com.onix.internship.survay.databinding.FragmentUserSettingBinding
 
 class UserSettingFragment: Fragment() {

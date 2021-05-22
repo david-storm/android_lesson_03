@@ -1,4 +1,4 @@
-package com.onix.internship.survay.ui.list
+package com.onix.internship.survay.ui.user.list
 
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
@@ -6,10 +6,11 @@ import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.database.user.User
+import com.onix.internship.survay.ui.list.UserListFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListViewModel(private val database: AppDatabase, uid: Int) : ViewModel() {
+class UserListViewModel(private val database: AppDatabase, uid: Int) : ViewModel() {
 
     private val _data = MutableLiveData<List<Any>>()
     val data: LiveData<List<Any>> = _data
@@ -34,13 +35,13 @@ class ListViewModel(private val database: AppDatabase, uid: Int) : ViewModel() {
     }
 
     fun onUserClicked(uid: Int) {
-        _navigate.value = ListFragmentDirections.actionListFragmentToUserSettingFragment(uid)
+        _navigate.value = UserListFragmentDirections.actionListFragmentToUserSettingFragment(uid)
     }
 
     fun onTestClicked(id: Int) {
         when (currentUser.getRoleEnum()) {
             Role.USER -> _navigate.value =
-                ListFragmentDirections.actionListFragmentToTestRunFragment(id)
+                UserListFragmentDirections.actionListFragmentToTestRunFragment(id)
             Role.ADMIN ->
                 viewModelScope.launch(Dispatchers.IO) {
                     _data.postValue(database.userDatabaseDao.getAllUsers())

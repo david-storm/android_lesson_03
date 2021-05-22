@@ -64,7 +64,7 @@ class RegisterViewModel(private val database: UserDatabaseDao, application: Appl
             val newUser = database.get(user.getLogin())
 
             _navigationLiveEvent.postValue(
-                PagerFragmentDirections.actionPagerFragmentToListFragment(newUser[0].getUid())
+                    PagerFragmentDirections.actionPagerFragmentToTestListFragment(newUser[0].getUid())
             )
         }
     }
