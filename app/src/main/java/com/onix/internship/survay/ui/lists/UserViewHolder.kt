@@ -9,9 +9,9 @@ import com.onix.internship.survay.databinding.UserItemViewBinding
 class UserViewHolder private constructor(val binding: UserItemViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: User, clickListener: UserListener) {
+    fun bind(item: User, listener: ((Int) -> Unit)?) {
         binding.user = item
-        binding.clickListener = clickListener
+        binding.login.setOnClickListener { listener?.invoke(item.getUid()) }
         binding.executePendingBindings()
     }
 

@@ -13,18 +13,19 @@ import com.onix.internship.survay.databinding.UserItemViewBinding
 private const val ITEM_VIEW_TYPE_USER = 0
 private const val ITEM_VIEW_TYPE_TEST = 1
 
-class AppAdapter(private val userListener: UserListener, private val testListener: TestListener) :
+class AppAdapter(val listener: ((Int) -> Unit)? = null) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(AppDiffCallback()) {
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is UserViewHolder -> {
                 val userItem = getItem(position) as DataItem.UserItem
-                holder.bind(userItem.user, userListener)
+                holder.bind(userItem.user, listener)
             }
             is TestViewHolder -> {
                 val testItem = getItem(position) as DataItem.TestItem
-                holder.bind(testItem.test, testListener)
+                holder.bind(testItem.test, listener?.let { TestListener(it) })
             }
         }
     }

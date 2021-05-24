@@ -9,7 +9,7 @@ import com.onix.internship.survay.databinding.TestItemViewBinding
 class TestViewHolder private constructor(val binding: TestItemViewBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Test, clickListener: TestListener) {
+    fun bind(item: Test, clickListener: TestListener?) {
         binding.test = item
         binding.clickListener = clickListener
         binding.executePendingBindings()

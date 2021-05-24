@@ -1,4 +1,4 @@
-package com.onix.internship.survay.ui.list
+package com.onix.internship.survay.ui.user.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,10 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentUserListBinding
+import com.onix.internship.survay.ui.list.UserListFragmentArgs
+import com.onix.internship.survay.ui.list.UserListViewModelFactory
 import com.onix.internship.survay.ui.lists.AppAdapter
-import com.onix.internship.survay.ui.lists.TestListener
-import com.onix.internship.survay.ui.lists.UserListener
-import com.onix.internship.survay.ui.user.list.UserListViewModel
 
 class ListFragment : Fragment() {
 
@@ -40,10 +39,7 @@ class ListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = AppAdapter(
-            UserListener { uid -> viewModel.onUserClicked(uid) },
-            TestListener { id -> viewModel.onTestClicked(id) }
-        )
+        val adapter = AppAdapter { uid -> viewModel.onUserClicked(uid) }
 
 //        val manager = LinearLayoutManager(activity)
 //        binding.listUsers.layoutManager = manager
