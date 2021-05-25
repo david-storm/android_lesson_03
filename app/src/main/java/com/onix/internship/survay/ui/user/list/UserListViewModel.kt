@@ -23,7 +23,17 @@ class UserListViewModel(private val database: AppDatabase, uid: Int, testIdSelec
     lateinit var currentUser: User
     lateinit var selectedTest: Test
 
+    private val _model : MutableLiveData<UserModel> = MutableLiveData()
+    val model: LiveData<UserModel> = _model
+
+    val currentMod = Transformations.map(model) {
+        check -> check
+    }
+
+    private fun currentModel() : UserModel = _model.value!!
+
     init {
+        _model.value = UserModel()
         viewModelScope.launch(Dispatchers.IO) {
 
             currentUser = database.userDatabaseDao.get(uid).first()
@@ -33,9 +43,12 @@ class UserListViewModel(private val database: AppDatabase, uid: Int, testIdSelec
             _users.postValue(database.userDatabaseDao.getAllUsers())
         }
     }
+    fun changeModel() {
+//       model.value = currentModel().copy(check = !currentModel().check)
+    }
 
-    fun saveModel(list: List<User>) {
-        Log.i("role", "dd")
+    fun saveModel(data : UserModel) {
+        Log.i("test-2", data.check.toString())
     }
 
     fun onUserClicked(uid: Int) {

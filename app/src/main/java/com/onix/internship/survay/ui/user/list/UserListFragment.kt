@@ -1,6 +1,7 @@
 package com.onix.internship.survay.ui.user.list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,11 +42,16 @@ class UserListFragment : Fragment() {
             ViewModelProvider(this, UserListViewModelFactory(dataSource, args.uid, args.testSelected))
                 .get(UserListViewModel::class.java)
 
+        val nameObserver = Observer<UserModel> { data ->
+            // Update the UI, in this case, a TextView.
+            Log.i("test", data.toString().plus(" 25"))
+        }
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.listUsers.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = AppAdapter { uid -> viewModel.onUserClicked(uid, ) }
+        val adapter = AppAdapter { uid -> viewModel.onUserClicked(uid) }
 
         binding.listUsers.adapter = adapter
 
@@ -54,7 +60,7 @@ class UserListFragment : Fragment() {
                 adapter.submitDataList(it)
             }
         })
-        viewModel.users.observe(viewLifecycleOwner, Observer { t ->  viewModel.saveModel(t) } )
+        viewModel.model.observe(viewLifecycleOwner, nameObserver)
 
         viewModel.navigate.observe(viewLifecycleOwner, ::navigate)
 
