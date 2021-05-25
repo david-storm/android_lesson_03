@@ -17,4 +17,7 @@ interface TestDatabaseDao {
     @Query("SELECT * FROM tests ORDER BY id DESC")
     suspend fun testAll() : List<Test>
 
+    @Query("SELECT * FROM tests WHERE id = :id LIMIT 1")
+    suspend fun getTest(id: Int) : List<Test>
+
 }

@@ -15,11 +15,13 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_pagerFragment_to_testListFragment"
-            app:destination="@id/testListFragment" />
+            app:destination="@id/testListFragment"
+            app:popUpTo="@id/pagerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.onix.internship.survay.ui.list.UserListFragment"
+        android:name="com.onix.internship.survay.ui.user.list.UserListFragment"
         android:label="fragment_user_list"
         tools:layout="@layout/fragment_user_list">
         <argument
@@ -31,6 +33,13 @@
         <action
             android:id="@+id/action_listFragment_to_testRunFragment"
             app:destination="@id/testRunFragment" />
+        <argument
+            android:name="test_selected"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_userListFragment_to_testListFragment"
+            app:destination="@id/testListFragment" />
     </fragment>
     <fragment
 
@@ -61,5 +70,12 @@
         <action
             android:id="@+id/action_testListFragment_to_testRunFragment"
             app:destination="@id/testRunFragment" />
+        <action
+            android:id="@+id/action_testListFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+        <argument
+            android:name="user_selected"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

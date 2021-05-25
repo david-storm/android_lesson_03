@@ -1,7 +1,6 @@
 package com.onix.internship.survay.ui.test.list
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +33,7 @@ class TestListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val dataSource = AppDatabase.getInstance(requireContext())
         val viewModel =
             ViewModelProvider(this, TestListViewModelFactory(dataSource, args.uid))
@@ -41,9 +41,9 @@ class TestListFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
-//        binding.listTests.layoutManager = LinearLayoutManager(requireContext())
+        binding.listTests.layoutManager = LinearLayoutManager(requireContext())
         val adapter = AppAdapter { viewModel.onTestClicked(id) }
-        binding.listTests.adapter
+        binding.listTests.adapter = adapter
 
         viewModel.tests.observe(viewLifecycleOwner, Observer {
             it?.let {

@@ -7,15 +7,13 @@
         <variable
             name="user"
             type="com.onix.internship.survay.database.user.User"/>
-        <variable
-            name="clickListener"
-            type="com.onix.internship.survay.ui.lists.UserListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(user)}">
+      >
 
         <TextView
             android:id="@+id/login"
@@ -60,6 +58,16 @@
             app:layout_constraintTop_toBottomOf="@+id/login"
             tools:text="maneger" />
 
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/login"
+            app:viewRole="@{user}"
+            android:onClick="@{() -> user.changeRole()}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

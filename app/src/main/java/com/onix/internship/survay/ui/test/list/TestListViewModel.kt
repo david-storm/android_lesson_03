@@ -27,17 +27,16 @@ class TestListViewModel(private val database: AppDatabase, uid: Int) : ViewModel
         }
     }
 
-
     fun onTestClicked(id: Int) {
+
         when (currentUser.getRoleEnum()) {
             Role.USER -> _navigate.value =
                 TestListFragmentDirections.actionTestListFragmentToTestRunFragment(id)
-            Role.ADMIN ->
-                viewModelScope.launch(Dispatchers.IO) {
-                    _tests.postValue(database.testDatabaseDao.testAll())
-                }
+            Role.ADMIN -> _navigate.value =
+                TestListFragmentDirections.actionTestListFragmentToUserListFragment(
+                    currentUser.getUid(), id
+                )
             else -> throw ClassCastException("Error role")
         }
     }
-
 }

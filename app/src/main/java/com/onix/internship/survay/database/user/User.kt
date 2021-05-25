@@ -1,5 +1,6 @@
 package com.onix.internship.survay.database.user
 
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.*
@@ -84,10 +85,13 @@ data class User(
         else -> Role.DEFAULT
     }
 
-
     fun setRoleEnum(role: Role){
         setRole(role.roleIndex)
     }
 
+    fun changeRole(){
+        Log.i("role", uid.toString().plus(" - ").plus(role.toString()))
+
+    }
 }
 

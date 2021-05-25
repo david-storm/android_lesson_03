@@ -11,13 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentUserListBinding
-import com.onix.internship.survay.ui.list.UserListFragmentArgs
 import com.onix.internship.survay.ui.list.UserListViewModelFactory
 import com.onix.internship.survay.ui.lists.AppAdapter
 
-class ListFragment : Fragment() {
+class UserListFragment : Fragment() {
 
     private val args: UserListFragmentArgs by navArgs()
     private lateinit var binding: FragmentUserListBinding
@@ -28,37 +28,36 @@ class ListFragment : Fragment() {
     ): View {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
-
         binding = FragmentUserListBinding.inflate(inflater)
-
-        val dataSource = AppDatabase.getInstance(requireContext())
-        val viewModel =
-            ViewModelProvider(this, UserListViewModelFactory(dataSource, args.uid))
-                .get(UserListViewModel::class.java)
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-
-        val adapter = AppAdapter { uid -> viewModel.onUserClicked(uid) }
-
-//        val manager = LinearLayoutManager(activity)
-//        binding.listUsers.layoutManager = manager
-
-        binding.listUsers.adapter = adapter
-
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitDataList(it)
-            }
-        })
-
-        viewModel.navigate.observe(viewLifecycleOwner, ::navigate)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dataSource = AppDatabase.getInstance(requireContext())
+        val viewModel =
+            ViewModelProvider(this, UserListViewModelFactory(dataSource, args.uid, args.testSelected))
+                .get(UserListViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.listUsers.layoutManager = LinearLayoutManager(requireContext())
+
+        val adapter = AppAdapter { uid -> viewModel.onUserClicked(uid, ) }
+
+        binding.listUsers.adapter = adapter
+
+        viewModel.users.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitDataList(it)
+            }
+        })
+        viewModel.users.observe(viewLifecycleOwner, Observer { t ->  viewModel.saveModel(t) } )
+
+        viewModel.navigate.observe(viewLifecycleOwner, ::navigate)
+
     }
 
     private fun navigate(direction: NavDirections) {
