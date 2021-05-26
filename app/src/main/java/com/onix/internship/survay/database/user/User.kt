@@ -7,7 +7,6 @@ import androidx.room.*
 import com.onix.internship.survay.BR
 import com.onix.internship.survay.common.Role
 
-
 @Entity(tableName = "users", indices = [Index(value = ["login"], unique = true)])
 data class User(
 
@@ -20,6 +19,9 @@ data class User(
     @ColumnInfo(name = "role") private var role: Int = -1
 
 ) : BaseObservable() {
+
+    @Ignore
+    private var _listener: Change? = null
 
     @Bindable
     fun getUid(): Int = uid
@@ -91,7 +93,20 @@ data class User(
 
     fun changeRole(){
         Log.i("role", uid.toString().plus(" - ").plus(role.toString()))
-
+        if(getRoleEnum() == Role.MANAGER){
+            setRoleEnum(Role.USER)
+        } else {
+            setRoleEnum(Role.MANAGER)
+        }
+        _listener!!.onTextChange(role)
     }
+
+    fun setOnChangeListener(change: Change) {
+        _listener = change
+    }
+
 }
 
+interface Change {
+    fun onTextChange(value: Int)
+}

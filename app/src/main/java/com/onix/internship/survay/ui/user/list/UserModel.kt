@@ -1,18 +1,25 @@
 package com.onix.internship.survay.ui.user.list
 
-import android.util.Log
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import com.onix.internship.survay.BR
+
 
 data class UserModel (
-    var check: Boolean = true
-        ) {
+    private var check: Boolean = true
+        ) : BaseObservable() {
 
-    fun changeCheck(){
-        check = !check
-        Log.i("test", check.toString())
+
+
+    @Bindable
+    fun getCheck(): Boolean{
+        return check
     }
 
-    fun tttt(){
-        check = !check
-        Log.i("test", check.toString())
+    fun setCheck(field: Boolean){
+        check = field
+        notifyPropertyChanged(BR.check)
+
     }
+
 }

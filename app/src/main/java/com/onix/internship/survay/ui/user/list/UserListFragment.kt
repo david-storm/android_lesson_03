@@ -13,6 +13,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentUserListBinding
 import com.onix.internship.survay.ui.list.UserListViewModelFactory
@@ -42,10 +43,9 @@ class UserListFragment : Fragment() {
             ViewModelProvider(this, UserListViewModelFactory(dataSource, args.uid, args.testSelected))
                 .get(UserListViewModel::class.java)
 
-        val nameObserver = Observer<UserModel> { data ->
-            // Update the UI, in this case, a TextView.
-            Log.i("test", data.toString().plus(" 25"))
-        }
+//        val nameObserver = Observer<Boolean> { data ->
+//            Log.i("test", data.toString().plus(" 25"))
+//        }
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -60,7 +60,20 @@ class UserListFragment : Fragment() {
                 adapter.submitDataList(it)
             }
         })
-        viewModel.model.observe(viewLifecycleOwner, nameObserver)
+//        viewModel.modelCheck.observe(viewLifecycleOwner, nameObserver)
+
+
+        viewModel.checkModel.observe(viewLifecycleOwner, {
+            if(it == true) {
+                Snackbar.make(
+                    view,
+                    viewModel.model.getCheck().toString().plus(" test"),
+                    Snackbar.LENGTH_LONG
+                )
+                    .show()
+                viewModel.finishviewModel()
+            }
+        })
 
         viewModel.navigate.observe(viewLifecycleOwner, ::navigate)
 
