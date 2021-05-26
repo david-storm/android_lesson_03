@@ -1,7 +1,8 @@
 package com.onix.internship.survay.ui.view.binding
 
+import android.graphics.drawable.Drawable
 import android.widget.CheckBox
-import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
@@ -25,11 +26,11 @@ fun TextInputLayout.errorMessage(errorStates: ErrorStates) {
     }
 }
 
-@BindingAdapter("setRole")
-fun TextView.setRole(item: User?) {
+@BindingAdapter("role")
+fun TextView.role(item: Role?) {
     item?.let {
         setText(
-            when (item.getRoleEnum()) {
+            when (item) {
                 Role.ADMIN -> R.string.role_admin
                 Role.MANAGER -> R.string.role_manager
                 Role.USER -> R.string.role_user
@@ -39,7 +40,7 @@ fun TextView.setRole(item: User?) {
     }
 }
 
-@BindingAdapter("setFullName")
+@BindingAdapter("app:setFullName")
 fun TextView.setFullName(item: User?) {
     item?.let {
         text = item.getFirstName().plus(" ").plus(item.getSecondName())

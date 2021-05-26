@@ -12,7 +12,6 @@ class UserViewHolder private constructor(val binding: UserItemViewBinding) :
     fun bind(item: User, listener: ((Int) -> Unit)?) {
         binding.user = item
         binding.login.setOnClickListener { listener?.invoke(item.getUid()) }
-        binding.executePendingBindings()
     }
 
     companion object {

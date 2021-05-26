@@ -43,9 +43,6 @@ class UserListFragment : Fragment() {
             ViewModelProvider(this, UserListViewModelFactory(dataSource, args.uid, args.testSelected))
                 .get(UserListViewModel::class.java)
 
-//        val nameObserver = Observer<Boolean> { data ->
-//            Log.i("test", data.toString().plus(" 25"))
-//        }
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -58,20 +55,6 @@ class UserListFragment : Fragment() {
         viewModel.users.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitDataList(it)
-            }
-        })
-//        viewModel.modelCheck.observe(viewLifecycleOwner, nameObserver)
-
-
-        viewModel.checkModel.observe(viewLifecycleOwner, {
-            if(it == true) {
-                Snackbar.make(
-                    view,
-                    viewModel.model.getCheck().toString().plus(" test"),
-                    Snackbar.LENGTH_LONG
-                )
-                    .show()
-                viewModel.finishviewModel()
             }
         })
 

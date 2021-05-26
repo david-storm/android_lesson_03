@@ -92,13 +92,12 @@ data class User(
     }
 
     fun changeRole(){
-        Log.i("role", uid.toString().plus(" - ").plus(role.toString()))
         if(getRoleEnum() == Role.MANAGER){
             setRoleEnum(Role.USER)
         } else {
             setRoleEnum(Role.MANAGER)
         }
-        _listener!!.onTextChange(role)
+        _listener!!.onTextChange(this)
     }
 
     fun setOnChangeListener(change: Change) {
@@ -108,5 +107,5 @@ data class User(
 }
 
 interface Change {
-    fun onTextChange(value: Int)
+    fun onTextChange(value: User)
 }
