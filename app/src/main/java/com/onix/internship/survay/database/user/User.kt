@@ -1,6 +1,6 @@
 package com.onix.internship.survay.database.user
 
-import android.util.Log
+
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.*

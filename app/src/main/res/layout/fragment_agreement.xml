@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.agreement.AgreementFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.onix.internship.survay.ui.agreement.AgreementViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stubContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/checkBoxAgreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:checked="@={viewModel.model.userAgreement}"
+            android:text="checkBox 1"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/checkBoxTwo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.525" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:onClick="@{()->viewModel.agree()}"
+            android:text="I agree"
+            app:layout_constraintBottom_toTopOf="@+id/checkBoxAgreement"
+            app:layout_constraintStart_toStartOf="@+id/checkBoxAgreement" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:enabled="@{viewModel.enabledButtonNext}"
+            android:text="Next ->"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:onClick="@{()->viewModel.showBar()}"
+            android:text="snackBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{viewModel.countClicked[1].toString()}"
+            app:layout_constraintEnd_toEndOf="@+id/checkBoxTwo"
+            app:layout_constraintStart_toStartOf="@+id/checkBoxTwo"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{viewModel.countClicked[0].toString()}"
+            app:layout_constraintEnd_toEndOf="@+id/checkBoxAgreement"
+            app:layout_constraintStart_toStartOf="@+id/checkBoxAgreement"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:text="25" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="count clicked checkboxes :"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxTwo" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkBoxTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:checked="@={viewModel.model.checkBoxTwo}"
+            android:onCheckedChanged="@{(compoundButton, checked) ->
+                viewModel.onCheckedChange(compoundButton, checked)}"
+            android:text="CheckBox 2"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBoxAgreement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxAgreement"
+            app:layout_constraintTop_toTopOf="@+id/checkBoxAgreement" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
