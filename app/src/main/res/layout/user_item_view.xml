@@ -61,7 +61,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/name"
                 app:layout_constraintTop_toBottomOf="@+id/login"
-                app:role="@{user.roleEnum}"
+                app:role="@{user.role}"
                 tools:text="manager" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

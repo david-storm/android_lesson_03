@@ -48,10 +48,9 @@ class UserListViewModel(private val database: AppDatabase, uid: Int, testIdSelec
     }
 
     fun saveUser(user: User) {
+
         viewModelScope.launch(Dispatchers.IO) {
             database.userDatabaseDao.update(user)
-            user.setLogin("storm")
-            user.setFirstName("david")
         }
     }
 

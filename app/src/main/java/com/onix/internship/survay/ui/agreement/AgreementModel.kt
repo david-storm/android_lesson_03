@@ -1,13 +1,13 @@
 package com.onix.internship.survay.ui.agreement
 
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.onix.internship.survay.BR
 
 data class AgreementModel(
     private var _userAgreement: Boolean = false,
-    private var _checkBoxTwo: Boolean = false,
-    private var count: Int = 0
+    private var _checkBoxTwo: Boolean = false
 ) : BaseObservable() {
 
     @get:Bindable
@@ -24,8 +24,6 @@ data class AgreementModel(
         set(value) {
             _checkBoxTwo = value
             field = value
-            count.inc()
-
             notifyPropertyChanged(BR.checkBoxTwo)
         }
 

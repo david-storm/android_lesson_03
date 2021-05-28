@@ -25,7 +25,7 @@
             android:layout_marginEnd="32dp"
             android:checked="@={viewModel.model.userAgreement}"
             android:text="checkBox 1"
-
+            android:onCheckedChanged="@{(compoundButton, checked) -> viewModel.onCheckedChanged(0, checked)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/checkBoxTwo"
             app:layout_constraintHorizontal_bias="0.5"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:onClick="@{()->viewModel.agree()}"
-            android:text="I agree"
+            app:buttonAgree="@{viewModel.model.userAgreement}"
             app:layout_constraintBottom_toTopOf="@+id/checkBoxAgreement"
             app:layout_constraintStart_toStartOf="@+id/checkBoxAgreement" />
 
@@ -103,8 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:checked="@={viewModel.model.checkBoxTwo}"
-            android:onCheckedChanged="@{(compoundButton, checked) ->
-                viewModel.onCheckedChange(compoundButton, checked)}"
+            android:onCheckedChanged="@{(compoundButton, checked) -> viewModel.onCheckedChanged(1, checked)}"
             android:text="CheckBox 2"
             app:layout_constraintBottom_toBottomOf="@+id/checkBoxAgreement"
             app:layout_constraintEnd_toEndOf="parent"

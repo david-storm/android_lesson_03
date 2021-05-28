@@ -52,9 +52,9 @@ class RegisterViewModel(private val database: UserDatabaseDao, application: Appl
             }
 
             if (database.getAllUsers().isNullOrEmpty()) {
-                user.setRole(Role.ADMIN.roleIndex)
+                user.role = Role.ADMIN.roleIndex
             } else {
-                user.setRole(Role.USER.roleIndex)
+                user.role = Role.USER.roleIndex
             }
 
             user.setPassword(hashPassword(user.getPassword()))

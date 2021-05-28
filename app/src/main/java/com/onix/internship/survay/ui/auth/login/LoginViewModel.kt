@@ -35,8 +35,8 @@ class LoginViewModel(private val database: UserDatabaseDao, application: Applica
         val test = 1
         if(test == 1) {
             _navigationLiveEvent.postValue(
-//                PagerFragmentDirections.actionPagerFragmentToUserListFragment(1)
-                PagerFragmentDirections.actionPagerFragmentToAgreementFragment()
+                PagerFragmentDirections.actionPagerFragmentToUserListFragment(1)
+//                PagerFragmentDirections.actionPagerFragmentToAgreementFragment()
             )
             return
         }

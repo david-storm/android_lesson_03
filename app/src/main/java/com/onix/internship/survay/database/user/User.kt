@@ -1,6 +1,7 @@
 package com.onix.internship.survay.database.user
 
 
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.*
@@ -16,7 +17,7 @@ data class User(
     @ColumnInfo(name = "second_name") private var secondName: String = "",
     @ColumnInfo(name = "password") private var password: String = "",
     @Ignore private var passwordConfirm: String = "",
-    @ColumnInfo(name = "role") private var role: Int = -1
+    @ColumnInfo(name = "role") private var _role: Int = -1
 
 ) : BaseObservable() {
 
@@ -71,28 +72,31 @@ data class User(
         notifyPropertyChanged(BR.passwordConfirm)
     }
 
-    @Bindable
-    fun getRole(): Int = role
+    @Ignore
+    @get:Bindable
+    var role = _role
+        set(value) {
+            _role = value
+            field = value
+            notifyPropertyChanged(BR.role)
+        }
 
-    fun setRole(value: Int) {
-        role = value
-        notifyPropertyChanged(BR.role)
-    }
 
-
-    fun getRoleEnum(): Role = when (getRole()) {
+    fun getRoleEnum(): Role = when (_role) {
         0 -> Role.ADMIN
         1 -> Role.MANAGER
         2 -> Role.USER
         else -> Role.DEFAULT
     }
 
-    fun setRoleEnum(role: Role){
-        setRole(role.roleIndex)
+    fun setRoleEnum(newRole: Role) {
+        _role = newRole.roleIndex
+        role = _role
+        notifyPropertyChanged(BR.role)
     }
 
-    fun changeRole(){
-        if(getRoleEnum() == Role.MANAGER){
+    fun changeRole() {
+        if (getRoleEnum() == Role.MANAGER) {
             setRoleEnum(Role.USER)
         } else {
             setRoleEnum(Role.MANAGER)

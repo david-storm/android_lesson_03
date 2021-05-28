@@ -23,33 +23,25 @@ class AgreementViewModel : ViewModel() {
 
     val model = AgreementModel()
 
-    fun incrementCount(index: Int) {
+    private fun incrementCount(index: Int) {
         val result = _countClicked.value!!
         result[index] = result[index] + 1
         _countClicked.value = result
     }
 
-
-    fun onCheckedChange(compatButton: CompoundButton, checked: Boolean){
-
-    }
-
-    fun changeCheckBox(index: Int, checked: Boolean) {
-//        if (index == 0) {
-//            _enabledButtonNext.value = model.userAgreement
-//        }
+    fun onCheckedChanged(index: Int, isChecked: Boolean) {
+        if (index == 0) {
+            Log.i("test-c", "${model.userAgreement}")
+            _enabledButtonNext.value = isChecked
+        }
         incrementCount(index)
     }
 
-
-    fun clickBox(index: Int) {
-        incrementCount(index)
-    }
 
     fun agree() {
         model.apply {
+            Log.i("test-b", "$userAgreement")
             userAgreement = !userAgreement
-            _enabledButtonNext.value = userAgreement
         }
     }
 
@@ -60,21 +52,4 @@ class AgreementViewModel : ViewModel() {
     fun showBarFinished() {
         _snackBarShow.value = false
     }
-
-
-    //    init {
-//        model.addOnPropertyChangedCallback(
-//            object : Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(
-//                    observable: Observable?, i: Int
-//                ) {
-//                    if (BR.userAgreement == i) {
-//                        _enabledButtonNext.value = model.userAgreement
-//                        incrementCount(0)
-//                    } else if (BR.checkBoxTwo == i) {
-//                        incrementCount(1)
-//                    }
-//                }
-//            })
-//    }
 }

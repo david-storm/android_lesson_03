@@ -1,6 +1,6 @@
 package com.onix.internship.survay.ui.view.binding
 
-import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,20 +27,32 @@ fun TextInputLayout.errorMessage(errorStates: ErrorStates) {
 }
 
 @BindingAdapter("role")
-fun TextView.role(item: Role?) {
+fun TextView.role(item: Int?) {
     item?.let {
-        setText(
+        Log.i("test", "$item")
+        text =
             when (item) {
-                Role.ADMIN -> R.string.role_admin
-                Role.MANAGER -> R.string.role_manager
-                Role.USER -> R.string.role_user
-                else -> R.string.role_other
+//                Role.ADMIN -> R.string.role_admin
+//                Role.MANAGER -> R.string.role_manager
+//                Role.USER -> R.string.role_user
+                0 -> resources.getString(R.string.role_admin)
+                1 ->  resources.getString(R.string.role_manager)
+                2 ->  resources.getString(R.string.role_user)
+                else ->  resources.getString(R.string.role_other)
+
             }
-        )
     }
 }
 
-@BindingAdapter("app:setFullName")
+@BindingAdapter("buttonAgree")
+fun TextView.buttonAgree(agree: Boolean) {
+   text = when(agree){
+       true -> "agree"
+       false -> "not agree"
+   }
+}
+
+@BindingAdapter("setFullName")
 fun TextView.setFullName(item: User?) {
     item?.let {
         text = item.getFirstName().plus(" ").plus(item.getSecondName())
