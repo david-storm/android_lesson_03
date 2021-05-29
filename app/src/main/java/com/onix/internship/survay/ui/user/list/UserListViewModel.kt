@@ -1,13 +1,12 @@
 package com.onix.internship.survay.ui.user.list
 
-import android.util.Log
+import androidx.databinding.Observable
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
 import com.onix.internship.survay.common.Role
 import com.onix.internship.survay.common.SingleLiveEvent
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.database.test.Test
-import com.onix.internship.survay.database.user.Change
 import com.onix.internship.survay.database.user.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,11 +34,14 @@ class UserListViewModel(private val database: AppDatabase, uid: Int, testIdSelec
             val currentUsers = database.userDatabaseDao.getAllUsers()
 
             currentUsers.map { user ->
-                user.setOnChangeListener(object : Change {
-                    override fun onTextChange(value: User) {
-                        saveUser(value)
+                user.addOnPropertyChangedCallback(
+                    object : Observable.OnPropertyChangedCallback(){
+                        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                            saveUser(sender as User)
+                        }
                     }
-                })
+
+                )
             }
 
             _users.postValue(currentUsers)
@@ -48,7 +50,6 @@ class UserListViewModel(private val database: AppDatabase, uid: Int, testIdSelec
     }
 
     fun saveUser(user: User) {
-
         viewModelScope.launch(Dispatchers.IO) {
             database.userDatabaseDao.update(user)
         }

@@ -15,10 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wrapper_content"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -30,8 +33,8 @@
                 android:paddingEnd="16dp"
                 android:text="@{user.login}"
                 android:textSize="36sp"
-                app:layout_constraintEnd_toEndOf="@+id/role"
-                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/wrapper_content"
                 tools:text="storm" />
 
@@ -65,7 +68,6 @@
                 tools:text="manager" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <CheckBox
             android:id="@+id/checkBox"

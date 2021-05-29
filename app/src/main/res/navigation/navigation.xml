@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_userListFragment_to_testListFragment"
             app:destination="@id/testListFragment" />
+        <action
+            android:id="@+id/action_userListFragment_to_pagerFragment"
+            app:destination="@id/pagerFragment" />
     </fragment>
     <fragment
 

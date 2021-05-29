@@ -22,4 +22,6 @@
     <string name="role_other">Other</string>
     <string name="register">Register</string>
     <string name="test_run">Test run</string>
+    <string name="logout">logout</string>
+    <string name="roles_setting">roles setting</string>
 </resources>

@@ -25,7 +25,6 @@ class TestListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (activity as AppCompatActivity).supportActionBar!!.show()
 
         binding = FragmentTestListBinding.inflate(inflater)
         return binding.root
@@ -39,6 +38,8 @@ class TestListFragment : Fragment() {
             ViewModelProvider(this, TestListViewModelFactory(dataSource, args.uid))
                 .get(TestListViewModel::class.java)
         binding.viewModel = viewModel
+
+        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.listTests.layoutManager = LinearLayoutManager(requireContext())

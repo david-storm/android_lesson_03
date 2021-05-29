@@ -17,12 +17,9 @@ data class User(
     @ColumnInfo(name = "second_name") private var secondName: String = "",
     @ColumnInfo(name = "password") private var password: String = "",
     @Ignore private var passwordConfirm: String = "",
-    @ColumnInfo(name = "role") private var _role: Int = -1
+    @ColumnInfo(name = "role") private var role: Int = -1
 
 ) : BaseObservable() {
-
-    @Ignore
-    private var _listener: Change? = null
 
     @Bindable
     fun getUid(): Int = uid
@@ -72,17 +69,16 @@ data class User(
         notifyPropertyChanged(BR.passwordConfirm)
     }
 
-    @Ignore
-    @get:Bindable
-    var role = _role
-        set(value) {
-            _role = value
-            field = value
-            notifyPropertyChanged(BR.role)
-        }
+    @Bindable
+    fun getRole(): Int = role
+
+    fun setRole(value: Int) {
+        role = value
+        notifyPropertyChanged(BR.role)
+    }
 
 
-    fun getRoleEnum(): Role = when (_role) {
+    fun getRoleEnum(): Role = when (role) {
         0 -> Role.ADMIN
         1 -> Role.MANAGER
         2 -> Role.USER
@@ -90,9 +86,7 @@ data class User(
     }
 
     fun setRoleEnum(newRole: Role) {
-        _role = newRole.roleIndex
-        role = _role
-        notifyPropertyChanged(BR.role)
+        setRole(newRole.roleIndex)
     }
 
     fun changeRole() {
@@ -101,15 +95,6 @@ data class User(
         } else {
             setRoleEnum(Role.MANAGER)
         }
-        _listener!!.onTextChange(this)
     }
-
-    fun setOnChangeListener(change: Change) {
-        _listener = change
-    }
-
 }
 
-interface Change {
-    fun onTextChange(value: User)
-}
