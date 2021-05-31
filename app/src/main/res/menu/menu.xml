@@ -3,14 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-
     <item
-        android:id="@+id/role"
-        android:title="@string/roles_setting"
-        />
-
-    <item
-        android:id="@+id/pagerFragment"
+        android:id="@+id/logoutDialog"
         android:title="@string/logout"
         />
 

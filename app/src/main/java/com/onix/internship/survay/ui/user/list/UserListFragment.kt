@@ -3,22 +3,21 @@ package com.onix.internship.survay.ui.user.list
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.onix.internship.survay.R
 import com.onix.internship.survay.database.AppDatabase
 import com.onix.internship.survay.databinding.FragmentUserListBinding
 import com.onix.internship.survay.ui.list.UserListViewModelFactory
 import com.onix.internship.survay.ui.lists.AppAdapter
+import com.onix.internship.survay.ui.logout.LogoutDialog
 
 class UserListFragment : Fragment() {
 
@@ -44,20 +43,18 @@ class UserListFragment : Fragment() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.logout -> {
-//                navigate(UserListFragmentDirections.actionUserListFragmentToPagerFragment())
-//                true
-//            }
-//
-//            else -> {
-//
-//                super.onOptionsItemSelected(item)
-//            }
-//        }
-        return NavigationUI.
-        onNavDestinationSelected(item,requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.role -> {
+
+
+//                Log.i("test", "role")
+//                navigate(UserListFragmentDirections.actionUserListFragmentToLogoutDialog())
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

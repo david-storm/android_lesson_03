@@ -24,4 +24,7 @@
     <string name="test_run">Test run</string>
     <string name="logout">logout</string>
     <string name="roles_setting">roles setting</string>
+    <string name="logout_question">Are you sure you want to logout?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>

@@ -3,18 +3,25 @@ package com.onix.internship.survay.ui.activity
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.onix.internship.survay.R
 import com.onix.internship.survay.databinding.ActivityMainBinding
+import com.onix.internship.survay.ui.logout.LogoutDialog
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+    lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
+         navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
@@ -37,7 +44,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.
+        onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
-        return (supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment).navController.navigateUp()
+        return navController.navigateUp()
     }
 }

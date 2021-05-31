@@ -18,9 +18,6 @@
             app:destination="@id/testListFragment"
             app:popUpTo="@id/pagerFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_pagerFragment_to_agreementFragment"
-            app:destination="@id/agreementFragment" />
     </fragment>
     <fragment
         android:id="@+id/userListFragment"
@@ -89,4 +86,13 @@
         android:name="com.onix.internship.survay.ui.agreement.AgreementFragment"
         android:label="AgreementFragment"
         tools:layout="@layout/fragment_agreement"/>
+    <dialog
+        android:id="@+id/logoutDialog"
+        android:name="com.onix.internship.survay.ui.logout.LogoutDialog"
+        android:label="LogoutDialog"
+        tools:layout="@layout/dialog_logout">
+        <action
+            android:id="@+id/action_logoutDialog_to_pagerFragment"
+            app:destination="@id/pagerFragment" />
+    </dialog>
 </navigation>
